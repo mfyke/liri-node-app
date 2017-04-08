@@ -9,7 +9,7 @@ liri (input);
 function liri (input) {
 var command = input[2];
 if (command==="my-tweets") {
-	console.log("tweet");
+	console.log("tweets");
 	var params = {screen_name: "ShreksDawg", count: "20"};
 	client.get("statuses/user_timeline", params, function(error, tweets, response) {
 
@@ -70,8 +70,8 @@ else if (command==="movie-this") {
 	else {
 		shrek="Mr Nobody"
 	}
-
-	request("http://www.omdbapi.com/?t="+shrek+"&y=&plot=short&r=json", function(error, response, body) {
+	console.log(shrek);
+	request("http://www.omdbapi.com/?t="+shrek.trim()+"&y=&plot=short&r=json", function(error, response, body) {
 
     if (!error && response.statusCode === 200) {
 
