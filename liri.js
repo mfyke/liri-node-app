@@ -3,8 +3,10 @@ var Twitter = require ('twitter');
 var client= new Twitter (keys.twitterKeys);
 var request = require("request");
 var spotify = require('spotify');
+var fs = require('fs');
 var input = process.argv;
-
+liri (input);
+function liri (input) {
 var command = input[2];
 if (command==="my-tweets") {
 	console.log("tweet");
@@ -19,7 +21,7 @@ if (command==="my-tweets") {
 else if (command==="spotify-this-song") {
 	console.log("spotify!");
 	var shrek="";
-	if(process.argv.length > 3){
+	if(input.length > 3){
 		for (var emily=3; emily<input.length; emily++) {
 		shrek+= " " + input[emily];
 		}
@@ -60,7 +62,7 @@ else if (command==="spotify-this-song") {
 else if (command==="movie-this") {
 	console.log("movie!");
 	var shrek="";
-	if(process.argv.length > 3){
+	if(input.length > 3){
 		for (var emily=3; emily<input.length; emily++) {
 		shrek+= " " + input[emily];
 		}
@@ -88,8 +90,20 @@ else if (command==="movie-this") {
 }
 else if (command==="do-what-it-says") {
 	console.log("random!");
+	var dataArr = [];
+	fs.readFile('random.txt', "utf8", function(err, data) {
+		if(err) {
+			console.log(err);
+		}
+		dataArr=data.split(",");
+		console.log(dataArr[1])
+		input[2]=dataArr[0];
+		input[3]=dataArr[1];
+		liri(input);
+	});
 	
 }
 else {
 	console.log("command not recognized");
+}
 }
